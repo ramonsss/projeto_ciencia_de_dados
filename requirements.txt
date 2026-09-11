@@ -1,5 +1,14 @@
 pandas
+polars
+dask
+sqlalchemy
+psycopg2-binary
+python-dotenv
 requests
+pyarrow
+fastparquet
+scikit-learn
+xgboost
+jupyter
 matplotlib
 seaborn
-pyarrow

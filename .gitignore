@@ -1,9 +1,6 @@
 data/
-*.pyc
-__pycache__/
-.ipynb_checkpoints/
-*.egg-info/
+csv/
 .env
-.venv/
-venv/
-*.db
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
