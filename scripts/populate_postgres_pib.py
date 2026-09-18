@@ -21,29 +21,34 @@ def get_db_engine():
     return create_engine(connection_string)
 
 def populate_pib():
-    print("Baixando dados do PIB Municipal (Tabela 5938) do IBGE SIDRA...")
-    
-    url = "https://apisidra.ibge.gov.br/values/t/5938/n6/all/v/37/p/last%201"
-    
-    response = requests.get(url)
+    print("Baixando dados do PIB Municipal (Tabela 5938) do IBGE servicodados v3...")
+
+    # Usa API v3 do IBGE (servicodados) — tabela 5938, variável 37 (PIB a preços correntes), período 2021
+    url = (
+        "https://servicodados.ibge.gov.br/api/v3/agregados/5938"
+        "/periodos/2021/variaveis/37?localidades=N6[all]"
+    )
+
+    response = requests.get(url, timeout=60, headers={"User-Agent": "Mozilla/5.0"})
     response.raise_for_status()
     data = response.json()
-    
-    columns = data[0]
-    df = pd.DataFrame(data[1:])
-    df.columns = columns.keys()
-    
-    df = df.rename(columns={
-        "D1C": "codigo_municipio",
-        "D1N": "nome_municipio",
-        "D2C": "ano",
-        "V": "pib_corrente_mil_reais"
-    })
-    
-    df = df[["codigo_municipio", "nome_municipio", "ano", "pib_corrente_mil_reais"]]
-    
+
+    # Parse do formato v3: [{ id, variavel, resultados: [{ series: [{ localidade, serie }] }] }]
+    rows = []
+    for variavel in data:
+        for resultado in variavel.get("resultados", []):
+            for serie in resultado.get("series", []):
+                localidade = serie.get("localidade", {})
+                for periodo, valor in serie.get("serie", {}).items():
+                    rows.append({
+                        "codigo_municipio": localidade.get("id", ""),
+                        "nome_municipio": localidade.get("nome", ""),
+                        "ano": periodo,
+                        "pib_corrente_mil_reais": valor,
+                    })
+
+    df = pd.DataFrame(rows)
     df['pib_corrente_mil_reais'] = pd.to_numeric(df['pib_corrente_mil_reais'], errors='coerce')
-    
     df['updated_at'] = pd.Timestamp.now()
     
     print("Dados baixados com sucesso. Conectando ao PostgreSQL...")
