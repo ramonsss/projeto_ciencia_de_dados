@@ -30,3 +30,6 @@ margem_liquida_anual = 0.09
 fracao_bons_clientes_perdidos = 0.25
 custo_campanha_relativo = 0.002
 fracao_carteira_exposta = 0.20
+
+[qualidade]
+dias_max_ingestao = 30

@@ -22,9 +22,10 @@ STAGES = {
     "gold": [("credito_pa.gold.run", "run_gold")],
     "ml": [("credito_pa.ml.run", "run_ml")],
     "report": [("credito_pa.ml.run", "run_report")],
+    "resumo": [("credito_pa.quality.resumo", "log_resumo")],
 }
 
-ORDER_ALL = ["seed", "bronze", "silver", "gold", "ml", "report"]
+ORDER_ALL = ["seed", "bronze", "silver", "gold", "ml", "report", "resumo"]
 
 
 def _call(module: str, func: str, settings: Settings):

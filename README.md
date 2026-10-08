@@ -74,7 +74,7 @@ python -m pip install -e .
 # 2. Configuração (opcional: sem .env valem os defaults, com SQLite local)
 cp .env.example .env            # Windows: copy .env.example .env
 
-# 3. Pipeline de ponta a ponta (seed -> bronze -> silver -> gold -> ml -> report)
+# 3. Pipeline de ponta a ponta (seed -> bronze -> silver -> gold -> ml -> report -> resumo)
 #    1ª vez: cerca de 20 min (o download e a leitura do SCR levam cerca de 14 min); nas seguintes, cerca de 1 min (cache + idempotência)
 python scripts/run_pipeline.py --stage all
 ```
@@ -88,6 +88,7 @@ python scripts/run_pipeline.py --stage silver    # + reports/silver_relatorio.md
 python scripts/run_pipeline.py --stage gold      # + base ML-Ready + export para o warehouse + reports/gold_relatorio.md
 python scripts/run_pipeline.py --stage ml        # validação temporal, modelos, baselines -> reports/ml_resultados.md
 python scripts/run_pipeline.py --stage report    # ranking + reports/decisao.md (frase-resposta)
+python scripts/run_pipeline.py --stage resumo    # linhas e qualidade por camada -> reports/qualidade.html e .json (falha se alguma regra ERROR reprovar)
 python scripts/gerar_docs.py                     # regenera docs/dicionario_dados.md a partir dos contratos
 ```
 
@@ -154,6 +155,7 @@ data/  reports/  .venv/     NÃO versionados (.gitignore)
 | [`docs/relatorio_cruzamento.md`](docs/relatorio_cruzamento.md) | Avaliação crítica da base, enriquecimento, chave de cruzamento, casados e órfãos e quebras de série |
 | [`docs/ml_ready.md`](docs/ml_ready.md) | Label, regra, coorte, t0, janelas, split, baselines, métrica e **checklist anti-vazamento com prova** |
 | [`docs/decisao.md`](docs/decisao.md) | Frase-resposta explicada linha a linha, decisor, custos FP/FN, limiar e limitações |
+| `reports/qualidade.html` e `.json` (gerados) | Linhas por camada (Bronze, Silver, Gold), regras de qualidade derivadas dos contratos (completude, unicidade, validade, consistência, integridade, atualidade), score, status e perfil das colunas |
 | `reports/*.md` (gerados) | Relatórios vivos de Silver, Gold, modelo e decisão, e a verificação integrada |
 
 ## 6. Uso de IA generativa (declaração obrigatória)

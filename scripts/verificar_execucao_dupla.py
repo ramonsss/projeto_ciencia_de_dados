@@ -41,7 +41,7 @@ def main() -> None:
     linhas = [
         "# Verificação integrada (execução dupla)", "",
         f"Gerado em {datetime.now(timezone.utc).isoformat(timespec='seconds')} por `python scripts/verificar_execucao_dupla.py`.", "",
-        "`run_pipeline --stage all` foi executado duas vezes seguidas (seed → bronze → silver → gold → ml → report).", "",
+        "`run_pipeline --stage all` foi executado duas vezes seguidas (seed → bronze → silver → gold → ml → report → resumo).", "",
         "| Tabela | Linhas (1ª) | Linhas (2ª) | Gravadas na 2ª (Bronze) | Hash do conteúdo (1ª = 2ª) | OK |",
         "|---|---:|---:|---:|---|:---:|",
     ]
