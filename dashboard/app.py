@@ -9,12 +9,13 @@ import streamlit as st
 
 from credito_pa.config import load_settings
 
-AZUL, LARANJA, VERDE_AGUA = "#2a78d6", "#eb6834", "#1baf7a"
+AZUL, LARANJA, VERDE_AGUA, VIOLETA = "#2a78d6", "#eb6834", "#1baf7a", "#4a3aa7"
 TINTA, TINTA_2, MUDO, GRADE, EIXO = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7"
 
 ACOES = {
+    "renegociar_e_restringir": "Renegociar e restringir",
     "renegociar_priorizar": "Renegociar (prioritário)",
-    "restringir_sem_garantia": "Restringir sem garantia",
+    "restringir_credito_sem_garantia": "Restringir sem garantia",
     "manter": "Manter",
 }
 MODELOS = {
@@ -24,7 +25,7 @@ MODELOS = {
     "baseline_nivel_atual": "Baseline: nível atual",
     "baseline_tendencia_6m": "Baseline: tendência 6m",
 }
-CORES_ACAO = {ACOES["renegociar_priorizar"]: LARANJA, ACOES["restringir_sem_garantia"]: VERDE_AGUA, ACOES["manter"]: AZUL}
+CORES_ACAO = dict(zip(ACOES.values(), [VIOLETA, LARANJA, VERDE_AGUA, AZUL]))
 LOCALE_BR = {"decimal": ",", "thousands": ".", "grouping": [3], "currency": ["R$ ", ""]}
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro",
          "novembro", "dezembro"]
@@ -98,7 +99,7 @@ if "faltando" in dados:
 ranking, fato, scr, decisao, ml = (dados[k] for k in ("ranking", "fato", "scr", "decisao", "ml"))
 limiar = decisao["limiar_alto_risco"]
 modelo, trilho, valores = decisao["modelo"], decisao["trilho_renegociacao"], decisao["valores"]
-n_alto = decisao["contagem_acoes"].get("renegociar_priorizar", 0)
+n_alto = sum(decisao["contagem_acoes"].get(a, 0) for a in ("renegociar_priorizar", "renegociar_e_restringir"))
 ranking = ranking.assign(acao=ranking["acao_recomendada"].map(ACOES).fillna(ranking["acao_recomendada"]))
 
 st.title("Risco de crédito municipal no Pará × riqueza")
