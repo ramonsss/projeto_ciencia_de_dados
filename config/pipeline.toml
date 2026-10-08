@@ -1,0 +1,32 @@
+[analise]
+competencia_inicio = "2019-01"
+competencia_fim_comparavel = "2024-12"
+
+[pib]
+defasagem_anos = 2
+mes_publicacao = 12
+
+[ml]
+janela_observacao_meses = 12
+janela_predicao_meses = 6
+t0_inicio = "2020-12"
+t0_fim = "2024-06"
+treino_t0_fim = "2022-12"
+teste_t0_inicio = "2023-06"
+t0_decisao = "2024-12"
+percentil_alto_risco = 75
+deterioracao_fator_relativo = 1.25
+deterioracao_minimo_absoluto = 0.005
+carteira_minima_reais = 5_000_000.0
+fracao_municipios_teste_grupo = 0.2
+n_splits_validacao = 4
+alerta_ap_suspeita = 0.95
+bootstrap_n = 1000
+
+[custos]
+lgd = 0.45
+pd_adicional = 0.10
+margem_liquida_anual = 0.09
+fracao_bons_clientes_perdidos = 0.25
+custo_campanha_relativo = 0.002
+fracao_carteira_exposta = 0.20
