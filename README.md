@@ -91,6 +91,16 @@ python scripts/run_pipeline.py --stage report    # ranking + reports/decisao.md 
 python scripts/gerar_docs.py                     # regenera docs/dicionario_dados.md a partir dos contratos
 ```
 
+**Dashboard de decisão (depois de rodar o pipeline):**
+
+```bash
+streamlit run dashboard/app.py                   # abre em http://localhost:8501
+```
+
+O painel só lê a Gold (`data/gold/*.parquet`) e os relatórios (`reports/decisao.json`, `reports/ml_resultados.json`).
+Tem cinco abas: frase-resposta, fila de prioridade (com filtros e download em CSV), riqueza × risco, evolução mensal e
+modelo contra baselines.
+
 **Demonstração de idempotência (para a defesa):**
 
 ```bash
@@ -127,6 +137,7 @@ src/credito_pa/
   ml/                       dataset.py (label/coorte/t0/split), train.py, evaluate.py, decision.py, run.py
   quality/                  contratos, checagens (schema/domínio/PK) e gerador do dicionário
 scripts/                    run_pipeline.py, seed_source_db.py, demo_idempotencia.py, gerar_docs.py
+dashboard/app.py            painel Streamlit (só lê a Gold e os relatórios)
 tests/                      testes offline (idempotência, quarentena, retry, PK, anti-vazamento, modelo, docs)
 docs/                       dicionário de dados, relatório de cruzamento, ML-Ready, decisão
 notebooks/                  EDA opcional (só lê a Gold)

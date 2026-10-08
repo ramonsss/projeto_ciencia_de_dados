@@ -12,4 +12,7 @@ scikit-learn==1.9.1
 scipy==1.18.1
 joblib==1.6.0
 
+streamlit==1.65.0
+altair==6.3.0
+
 pytest==9.1.1
