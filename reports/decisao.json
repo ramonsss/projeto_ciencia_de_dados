@@ -1,0 +1,269 @@
+{
+  "frase_resposta": "Cruzando as bases ESTBAN e SCR.data (Banco Central), PIB dos Municípios e População (IBGE) e focos de calor (INPE), identificamos que 42 dos 127 municípios elegíveis do Pará já estão em risco alto (provisão ≥ 4,07% da carteira) e concentram 72,1% das perdas já provisionadas do estado. A riqueza NÃO explica o NÍVEL de risco: o quintil mais pobre de PIB per capita (até R$ 8.560) tem provisão mediana de 2,29%, contra 2,55% no mais rico (Spearman = -0,04 em dez/2024). Já a taxa de DETERIORAÇÃO é de 12,0% no quintil mais pobre, contra 4,0% a 8,3% nos demais. Controlando pelas demais variáveis, porém, o PIB per capita não altera a chance de deterioração (odds ratio de 1,01 por desvio): o que antecipa a piora é o porte e a composição da carteira local, menores nos municípios mais pobres. Recomendamos que a diretoria de crédito das cooperativas de crédito e dos bancos regionais com atuação no Pará faça uma campanha de renegociação de dívidas nos 42 municípios de risco alto e mantenha, por ora, as linhas sem garantia sem restrição (nenhum município atingiu a probabilidade de deterioração que compensa o custo de restringir, 44,4%), com vigilância mensal dos 5 de maior probabilidade nos próximos 6 meses (jan a jun/2025, janela de predição a partir do t0 de dez/2024), priorizando Piçarra, Palestina do Pará, Ulianópolis, Água Azul do Norte, Eldorado do Carajás. Se agir, o ganho esperado é atacar 72,1% das perdas provisionadas do estado atuando em 42 de 127 municípios. A regra acerta 93,8% dos municípios que seguirão em risco alto (precisão no teste) e cobre 91,0% deles (recall). Além disso, no trilho de concessão, o modelo reduziu o custo em R$ 325.181 frente a não agir no teste histórico (2023-06 a 2024-06); se errarmos, o custo é 6,2% da campanha direcionada a municípios que sairiam do risco alto sozinhos (falso positivo) e 9,0% dos municípios que entrarão em risco alto fora da campanha (falso negativo). No crédito sem garantia, a perda esperada residual nos municípios não restringidos é de R$ 3,7 mi. Vigilância de deterioração (sem ação imediata): Trairão (34,5%), Tracuateua (27,1%), Muaná (21,2%), Bagre (20,1%), Faro (18,6%).",
+  "campos_frase": {
+    "bases": "ESTBAN e SCR.data (Banco Central), PIB dos Municípios e População (IBGE) e focos de calor (INPE)",
+    "identificamos": "42 dos 127 municípios elegíveis do Pará já estão em risco alto (provisão ≥ 4,07% da carteira) e concentram 72,1% das perdas já provisionadas do estado. A riqueza NÃO explica o NÍVEL de risco: o quintil mais pobre de PIB per capita (até R$ 8.560) tem provisão mediana de 2,29%, contra 2,55% no mais rico (Spearman = -0,04 em dez/2024). Já a taxa de DETERIORAÇÃO é de 12,0% no quintil mais pobre, contra 4,0% a 8,3% nos demais. Controlando pelas demais variáveis, porém, o PIB per capita não altera a chance de deterioração (odds ratio de 1,01 por desvio): o que antecipa a piora é o porte e a composição da carteira local, menores nos municípios mais pobres",
+    "decisor": "a diretoria de crédito das cooperativas de crédito e dos bancos regionais com atuação no Pará",
+    "acao": "uma campanha de renegociação de dívidas nos 42 municípios de risco alto e mantenha, por ora, as linhas sem garantia sem restrição (nenhum município atingiu a probabilidade de deterioração que compensa o custo de restringir, 44,4%), com vigilância mensal dos 5 de maior probabilidade",
+    "prazo": "6 meses (jan a jun/2025, janela de predição a partir do t0 de dez/2024)",
+    "priorizando": "Piçarra, Palestina do Pará, Ulianópolis, Água Azul do Norte, Eldorado do Carajás",
+    "ganho": "atacar 72,1% das perdas provisionadas do estado atuando em 42 de 127 municípios. A regra acerta 93,8% dos municípios que seguirão em risco alto (precisão no teste) e cobre 91,0% deles (recall). Além disso, no trilho de concessão, o modelo reduziu o custo em R$ 325.181 frente a não agir no teste histórico (2023-06 a 2024-06)",
+    "custo_erro": "6,2% da campanha direcionada a municípios que sairiam do risco alto sozinhos (falso positivo) e 9,0% dos municípios que entrarão em risco alto fora da campanha (falso negativo). No crédito sem garantia, a perda esperada residual nos municípios não restringidos é de R$ 3,7 mi",
+    "vigilancia": "Trairão (34,5%), Tracuateua (27,1%), Muaná (21,2%), Bagre (20,1%), Faro (18,6%)"
+  },
+  "t0_decisao": "2024-12-31",
+  "municipios_elegiveis": 127,
+  "contagem_acoes": {
+    "manter": 85,
+    "renegociar_priorizar": 42
+  },
+  "limiar_alto_risco": 0.04073050695831357,
+  "limiar_deterioracao": 0.444426,
+  "custos": {
+    "c_fn": 0.045,
+    "c_fp": 0.0245,
+    "razao_fn_fp": 1.837,
+    "limiar_teorico": 0.3525,
+    "fracao_carteira_exposta": 0.2
+  },
+  "modelo": {
+    "nome": "gradient_boosting",
+    "ap_teste": 0.204,
+    "ic95_ap": [
+      0.1399,
+      0.3086
+    ],
+    "ap_prevalencia": 0.0811,
+    "ap_nivel_atual": 0.1459,
+    "ap_tendencia": 0.1344,
+    "ap_grupo": 0.3153,
+    "custo_teste": {
+      "sinalizados": 3,
+      "vp": 1,
+      "fp": 2,
+      "fn": 50,
+      "custo_fn_reais": 18152160.15,
+      "custo_fp_reais": 126337.73,
+      "custo_total_reais": 18278497.88,
+      "custo_unidades": 2.299
+    },
+    "custo_nao_agir_teste": {
+      "sinalizados": 0,
+      "vp": 0,
+      "fp": 0,
+      "fn": 51,
+      "custo_fn_reais": 18603678.97,
+      "custo_fp_reais": 0.0,
+      "custo_total_reais": 18603678.97,
+      "custo_unidades": 2.295
+    }
+  },
+  "trilho_renegociacao": {
+    "n": 629,
+    "prevalencia": 0.318,
+    "average_precision": 0.9738,
+    "roc_auc": 0.9824,
+    "precisao": 0.9381,
+    "recall": 0.91,
+    "sinalizados": 194,
+    "vp": 182,
+    "fp": 12,
+    "fn": 18,
+    "vn": 417,
+    "observacao": "AP alta vem da autocorrelação do risco (persistência), não de vazamento. Por isso este trilho usa regra transparente e o ML foi direcionado ao alerta de deterioração."
+  },
+  "riqueza": {
+    "quintis": [
+      {
+        "quintil": 1,
+        "pib_pc_min": 5391.0,
+        "pib_pc_max": 8560.0,
+        "observacoes": 350,
+        "razao_provisao_media": 0.0291,
+        "razao_provisao_mediana": 0.0229,
+        "taxa_alto_risco": 0.26,
+        "taxa_deterioracao": 0.12
+      },
+      {
+        "quintil": 2,
+        "pib_pc_min": 8560.0,
+        "pib_pc_max": 10894.0,
+        "observacoes": 350,
+        "razao_provisao_media": 0.0313,
+        "razao_provisao_mediana": 0.026,
+        "taxa_alto_risco": 0.32,
+        "taxa_deterioracao": 0.04
+      },
+      {
+        "quintil": 3,
+        "pib_pc_min": 10897.0,
+        "pib_pc_max": 14193.0,
+        "observacoes": 351,
+        "razao_provisao_media": 0.0256,
+        "razao_provisao_mediana": 0.0208,
+        "taxa_alto_risco": 0.2222,
+        "taxa_deterioracao": 0.0684
+      },
+      {
+        "quintil": 4,
+        "pib_pc_min": 14193.0,
+        "pib_pc_max": 21458.0,
+        "observacoes": 350,
+        "razao_provisao_media": 0.035,
+        "razao_provisao_mediana": 0.0259,
+        "taxa_alto_risco": 0.2629,
+        "taxa_deterioracao": 0.0543
+      },
+      {
+        "quintil": 5,
+        "pib_pc_min": 21458.0,
+        "pib_pc_max": 894763.0,
+        "observacoes": 350,
+        "razao_provisao_media": 0.0354,
+        "razao_provisao_mediana": 0.0255,
+        "taxa_alto_risco": 0.3143,
+        "taxa_deterioracao": 0.0829
+      }
+    ],
+    "spearman_pib_pc_vs_razao_dez2024": -0.0435,
+    "modelo": {
+      "feature": "log_pib_per_capita",
+      "coef_padronizado": 0.0104,
+      "odds_ratio_por_1_desvio": 1.0105
+    }
+  },
+  "valores": {
+    "ganho_esperado_restricao_reais": 0.0,
+    "custo_fp_esperado_reais": 0.0,
+    "custo_fn_residual_reais": 3680113.44,
+    "economia_teste_reais": 325181.09,
+    "carteira_risco_alto_reais": 29082178506.0,
+    "participacao_provisao_risco_alto": 0.721
+  },
+  "vigilancia_deterioracao": [
+    {
+      "nome_municipio": "Trairão",
+      "prob_deterioracao": 0.3445736365545318,
+      "razao_provisao_t0": 0.038905334786867515,
+      "carteira_credito_reais": 10703108.0
+    },
+    {
+      "nome_municipio": "Tracuateua",
+      "prob_deterioracao": 0.27135802462182546,
+      "razao_provisao_t0": 0.026117919935541623,
+      "carteira_credito_reais": 19971958.0
+    },
+    {
+      "nome_municipio": "Muaná",
+      "prob_deterioracao": 0.2115575311779372,
+      "razao_provisao_t0": 0.02217705114784122,
+      "carteira_credito_reais": 29502164.0
+    },
+    {
+      "nome_municipio": "Bagre",
+      "prob_deterioracao": 0.20127084204184584,
+      "razao_provisao_t0": 0.033894500389019415,
+      "carteira_credito_reais": 13039195.0
+    },
+    {
+      "nome_municipio": "Faro",
+      "prob_deterioracao": 0.18573917054588282,
+      "razao_provisao_t0": 0.02869443552897566,
+      "carteira_credito_reais": 18410573.0
+    }
+  ],
+  "top10": [
+    {
+      "ordem_prioridade": 1,
+      "nome_municipio": "Piçarra",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.8446836167988104,
+      "prob_deterioracao": 0.23042073661871676,
+      "carteira_credito_reais": 9516150.0
+    },
+    {
+      "ordem_prioridade": 2,
+      "nome_municipio": "Palestina do Pará",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.30549322030678894,
+      "prob_deterioracao": 0.07690523170758859,
+      "carteira_credito_reais": 8107594.0
+    },
+    {
+      "ordem_prioridade": 3,
+      "nome_municipio": "Ulianópolis",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.23489533187970776,
+      "prob_deterioracao": 0.1354316668996829,
+      "carteira_credito_reais": 5650240.0
+    },
+    {
+      "ordem_prioridade": 4,
+      "nome_municipio": "Água Azul do Norte",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.20978963040847592,
+      "prob_deterioracao": 0.14109972756020522,
+      "carteira_credito_reais": 13071566.0
+    },
+    {
+      "ordem_prioridade": 5,
+      "nome_municipio": "Eldorado do Carajás",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.20667526790335755,
+      "prob_deterioracao": 0.023362800909362033,
+      "carteira_credito_reais": 77752385.0
+    },
+    {
+      "ordem_prioridade": 6,
+      "nome_municipio": "Floresta do Araguaia",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.20521416003705895,
+      "prob_deterioracao": 0.22952625469118776,
+      "carteira_credito_reais": 11726184.0
+    },
+    {
+      "ordem_prioridade": 7,
+      "nome_municipio": "Senador José Porfírio",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.20139322529778414,
+      "prob_deterioracao": 0.10395903420313984,
+      "carteira_credito_reais": 5963716.0
+    },
+    {
+      "ordem_prioridade": 8,
+      "nome_municipio": "Limoeiro do Ajuru",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.1678601253679922,
+      "prob_deterioracao": 0.03051426866660128,
+      "carteira_credito_reais": 7021888.0
+    },
+    {
+      "ordem_prioridade": 9,
+      "nome_municipio": "Vitória do Xingu",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.13160506824609777,
+      "prob_deterioracao": 0.0343341665379104,
+      "carteira_credito_reais": 12724244.0
+    },
+    {
+      "ordem_prioridade": 10,
+      "nome_municipio": "Terra Alta",
+      "acao_recomendada": "renegociar_priorizar",
+      "razao_provisao_t0": 0.12955380698565983,
+      "prob_deterioracao": 0.020599948139286898,
+      "carteira_credito_reais": 11093383.0
+    }
+  ],
+  "ranking_pk": {
+    "tabela": "ranking_priorizacao_municipios",
+    "granularidade": "Uma linha por município do Pará elegível no t0 de decisão (2024-12).",
+    "pk": [
+      "cod_ibge_municipio"
+    ],
+    "linhas": 127,
+    "duplicatas_na_pk": 0,
+    "linhas_com_pk_nula": 0,
+    "pk_unica": true,
+    "pk_sem_nulos": true
+  }
+}
