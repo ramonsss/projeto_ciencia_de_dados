@@ -52,3 +52,34 @@ def test_gold_rejeita_pk_duplicada(settings):
     dup = pl.concat([_contexto(1), _contexto(1)])
     with pytest.raises(ContractError):
         finalize_gold(settings, dup, CONTEXTO_SCR_PA_MES)
+
+
+def test_exportacao_declara_chaves_primaria_e_estrangeira(settings):
+    from sqlalchemy import inspect
+
+    from credito_pa.common.db import warehouse_engine
+    from credito_pa.common.io import write_parquet_atomic
+    from credito_pa.gold.contracts import RANKING_PRIORIZACAO_MUNICIPIOS as RANKING
+    from credito_pa.silver.contracts import DIM_MUNICIPIO
+
+    def linhas(contract, codigos, texto="x"):
+        base = {c.name: texto if c.dtype == pl.Utf8 else date(2024, 12, 31) if c.dtype == pl.Date else 1
+                for c in contract.columns}
+        return pl.DataFrame([{**base, "cod_ibge_municipio": cod} for cod in codigos], schema=contract.schema)
+
+    write_parquet_atomic(linhas(DIM_MUNICIPIO, ["1500107", "1500206"]), settings.layer_dir("silver") / "dim_municipio.parquet")
+    write_parquet_atomic(linhas(RANKING, ["1500107"]), settings.layer_dir("gold") / f"{RANKING.name}.parquet")
+
+    export_tables(settings, [RANKING.name])
+    write_parquet_atomic(linhas(DIM_MUNICIPIO, ["1500107", "1500206", "1500305"], "y"),
+                         settings.layer_dir("silver") / "dim_municipio.parquet")
+    assert export_tables(settings, [RANKING.name]) == {RANKING.name: 1}
+
+    engine = warehouse_engine(settings)
+    insp = inspect(engine)
+    assert insp.get_pk_constraint(RANKING.name)["constrained_columns"] == RANKING.primary_key
+    fk = insp.get_foreign_keys(RANKING.name)[0]
+    assert (fk["referred_table"], fk["constrained_columns"]) == ("dim_municipio", ["cod_ibge_municipio"])
+    with engine.connect() as conn:
+        dim = conn.exec_driver_sql("select cod_ibge_municipio, nome_municipio from dim_municipio order by 1").fetchall()
+    assert dim == [("1500107", "y"), ("1500206", "y"), ("1500305", "y")]
